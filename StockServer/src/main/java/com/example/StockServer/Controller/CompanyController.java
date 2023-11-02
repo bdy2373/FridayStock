@@ -14,6 +14,7 @@ import com.example.StockServer.Jpa.ReasonsJpaService;
 import com.example.StockServer.Jpa.ThemeJpaService;
 import com.example.StockServer.dao.Company;
 import com.example.StockServer.dao.Reasons;
+import com.example.StockServer.dao.Theme;
 
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -76,5 +77,17 @@ public class CompanyController {
     	System.out.println("getCompanyCode " + reasons.size());
         return reasons;
     }
+    
+    @ApiOperation(
+            value = "회사 전체 조회"
+            , notes = "회사 전체 조회")
+	@GetMapping(value = "/getAllCompanies")
+    public List<Company> getAllCompanies(){
+    	System.out.println("getAllCompanies");
+    	List<Company> companyList = companyJpaService.getCompanys();
+    	System.out.println("getAllCompanies " + companyList.size());
+       return companyList;
+    }
+    
 
 }
