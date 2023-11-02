@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,12 +15,11 @@ import com.example.StockServer.Jpa.ReasonsJpaService;
 import com.example.StockServer.Jpa.ThemeJpaService;
 import com.example.StockServer.dao.Company;
 import com.example.StockServer.dao.Reasons;
-import com.example.StockServer.dao.Theme;
 
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 
-
+@CrossOrigin(origins="*")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/Company")
