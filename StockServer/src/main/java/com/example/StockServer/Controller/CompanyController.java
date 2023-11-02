@@ -45,11 +45,11 @@ public class CompanyController {
     @ApiOperation(
             value = "회사요약명을 이용하여 회사 정보 검색"
             , notes = "회사 이름(요약명) LIKE 검색 지원")
-    @GetMapping(value = "/findByCompanyNameContaining/{companyShortName}")
+    @GetMapping(value = "/findByCompanyShortNameContaining/{companyShortName}")
     public List<Company> findByCompanyShortNameContaining(@PathVariable String companyShortName){
     	System.out.println("company name is? "+companyShortName);
-    	List<Company> companyList = companyJpaService.findByCompanyNameContaining(companyShortName);
-    	System.out.println("findByCompanyNameContaining " + companyList.size());
+    	List<Company> companyList = companyJpaService.findByCompanyShortNameContaining(companyShortName);
+    	System.out.println("findByCompanyShortNameContaining " + companyList.size());
        return companyList;
     }
     
