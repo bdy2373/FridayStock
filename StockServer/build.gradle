@@ -1,0 +1,79 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '2.7.17-SNAPSHOT'
+	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '1.8'
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+	maven { url 'https://repo.spring.io/milestone' }
+	maven { url 'https://repo.spring.io/snapshot' }
+}
+
+test {
+    useJUnitPlatform()
+}
+
+dependencies {
+	//implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'io.projectreactor:reactor-test'
+	
+	
+
+	//gson
+	implementation 'com.google.code.gson:gson'
+	
+	//logger
+	implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+	
+	//jsoup
+	implementation 'org.jsoup:jsoup:1.14.2'
+	
+	// JPA
+	// https://mvnrepository.com/artifact/mysql/mysql-connector-java
+	implementation group: 'com.mysql', name: 'mysql-connector-j', version: '8.0.33'
+	//implementation 'org.springframwork.boot:spring-boot-starter-jdbc'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	
+	//swagger
+	implementation("io.springfox:springfox-boot-starter:3.0.0")
+	
+	implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '3.0.0' // swagger
+implementation group: 'io.springfox', name: 'springfox-swagger2', version: '3.0.0' //swagger
+    
+   
+    
+
+//test
+//testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
+//    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+
+}
+
+ configurations {
+     all {
+       exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+     }
+ }
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
