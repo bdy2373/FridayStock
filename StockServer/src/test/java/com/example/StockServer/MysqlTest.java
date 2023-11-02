@@ -7,9 +7,6 @@ import java.sql.ResultSet;
 
 import org.junit.jupiter.api.Test;
 
-
- 
-
 public class MysqlTest {
 
  private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
