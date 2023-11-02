@@ -310,11 +310,7 @@ public class TempController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        if (!Optional.of(companyList).isEmpty()) {
-            return companyList.size();
-        } else {
-            return 0;
-        }
+        return companyList.size();
     }
     
     public List<Company> readByLine(String filename) throws IOException {
