@@ -15,6 +15,10 @@ public interface CompanyRepository extends JpaRepository<Company, Integer> {
 	Company findByCompanyCode(String companyCode);
 	List<Company> findByCompanyNameContaining(String companyName);
 	
+
+	List<Company> findByCompanyShortNameContaining(String companyShortName);
+	
+	
 	// TeamRepository.java
 	//@Query("SELECT distinct company_name FROM tbl_company t join fetch t.members ")
 	//public List<Team> findAllWithMemberUsingFetchJoin();
