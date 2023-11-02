@@ -33,7 +33,7 @@ public class MysqlTest {
    
    System.out.println(con);
   }catch (Exception e) {
-   System.out.println("�����߻�");
+   System.out.println("123123123");
    e.printStackTrace();
   }
  }
