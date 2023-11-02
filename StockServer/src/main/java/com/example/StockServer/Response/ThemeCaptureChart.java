@@ -8,7 +8,7 @@ import lombok.ToString;
 /**
  *     {
         "KeywordIdx": 152119,
-        "Keyword": "진단키트",
+        "Keyword": "123456123",
         "Diff": -11.81,
         "Score": 53.6,
         "Percentage": 144.9,
