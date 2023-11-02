@@ -18,6 +18,7 @@ import lombok.ToString;
         "New": 0,
         "Hot": 0
     }
+    
  * @author bdy23
  *
  */
