@@ -49,9 +49,9 @@ public class NewsController {
             , notes = "뉴스 전체 조회")
 	@GetMapping(value = "/getAllNews")
     public List<News> getAllNews(){
-    	System.out.println("getAllNews");
+    	logger.debug("getAllNews");
     	List<News> newsList = newsJpaService.getNewss();
-    	System.out.println("getAllNews " + newsList.size());
+    	logger.debug("getAllNews " + newsList.size());
        return newsList;
     }
     
@@ -61,7 +61,7 @@ public class NewsController {
             , notes = "테마로 신규뉴스 조회하고 저장하기")
 	@PutMapping(value = "/saveTodaysNewsWithTheme")
     public List<News> saveTodaysNewsWithTheme(@RequestParam Integer themeId){
-    	System.out.println("saveTodaysNewsWithTheme");
+    	logger.debug("saveTodaysNewsWithTheme");
     	Theme theme = themeJpaService.getTheme(themeId);
        	
     	List<News> updatedList = new ArrayList<>();
@@ -80,7 +80,7 @@ public class NewsController {
        		updatedList.add(news);
        	}
        	
-    	System.out.println("addReasonToNews " + updatedList.size());
+    	logger.debug("addReasonToNews " + updatedList.size());
        return updatedList;
     }
     
@@ -89,13 +89,13 @@ public class NewsController {
             , notes = "뉴스에 이유 달기 ")
 	@PutMapping(value = "/addReasonToNews")
     public List<News> addReasonToNews(@RequestBody List<News> newsList){
-    	System.out.println("addReasonToNews");
+    	logger.debug("addReasonToNews");
     	List<News> updatedList = new ArrayList<>();
     	for(News news : newsList) {
         	News updatedNews = newsJpaService.updateNews(news);
         	updatedList.add(updatedNews);
     	}
-    	System.out.println("addReasonToNews " + updatedList.size());
+    	logger.debug("addReasonToNews " + updatedList.size());
        return updatedList;
     }
     

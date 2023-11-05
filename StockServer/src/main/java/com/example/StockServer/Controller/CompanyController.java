@@ -37,9 +37,9 @@ public class CompanyController {
             , notes = "회사 이름(풀네임) LIKE 검색 지원")
     @GetMapping(value = "/findByCompanyNameContaining/{companyName}")
     public List<Company> findByCompanyNameContaining(@PathVariable String companyName){
-    	System.out.println("company name is? "+companyName);
+    	logger.debug("company name is? "+companyName);
     	List<Company> companyList = companyJpaService.findByCompanyNameContaining(companyName);
-    	System.out.println("findByCompanyNameContaining " + companyList.size());
+    	logger.debug("findByCompanyNameContaining " + companyList.size());
        return companyList;
     }
     
@@ -48,9 +48,9 @@ public class CompanyController {
             , notes = "회사 이름(요약명) LIKE 검색 지원")
     @GetMapping(value = "/findByCompanyShortNameContaining/{companyShortName}")
     public List<Company> findByCompanyShortNameContaining(@PathVariable String companyShortName){
-    	System.out.println("company name is? "+companyShortName);
+    	logger.debug("company name is? "+companyShortName);
     	List<Company> companyList = companyJpaService.findByCompanyShortNameContaining(companyShortName);
-    	System.out.println("findByCompanyShortNameContaining " + companyList.size());
+    	logger.debug("findByCompanyShortNameContaining " + companyList.size());
        return companyList;
     }
     
@@ -59,9 +59,9 @@ public class CompanyController {
             , notes = "종목코드를 정확하게 입력해야 나옴")
     @GetMapping(value = "/findByCompanyCode/{companyCode}")
     public Company getCompany(@PathVariable String companyCode){
-    	System.out.println("company code is? "+companyCode);
+    	logger.debug("company code is? "+companyCode);
     	Company findCompany = companyJpaService.findByCompanyCode(companyCode);
-    	System.out.println("getCompanyCode " + findCompany.getCompanyName());
+    	logger.debug("getCompanyCode " + findCompany.getCompanyName());
         return companyJpaService.findByCompanyCode(companyCode);
        // assertEquals(0, hospitalDao.getCount());
     }
@@ -71,10 +71,10 @@ public class CompanyController {
             , notes = "종목코드를 정확하게 입력해야 나옴")
     @GetMapping(value = "/getCompanyTheme/{companyCode}")
     public List<Reasons> getCompanyTheme(@PathVariable String companyCode){
-    	System.out.println("company code is? "+companyCode);
+    	logger.debug("company code is? "+companyCode);
     	Company findCompany = companyJpaService.findByCompanyCode(companyCode);
     	List<Reasons> reasons = reasonsJpaService.getReasonsWithCompany(findCompany);
-    	System.out.println("getCompanyCode " + reasons.size());
+    	logger.debug("getCompanyCode " + reasons.size());
         return reasons;
     }
     
@@ -83,9 +83,9 @@ public class CompanyController {
             , notes = "회사 전체 조회")
 	@GetMapping(value = "/getAllCompanies")
     public List<Company> getAllCompanies(){
-    	System.out.println("getAllCompanies");
+    	logger.debug("getAllCompanies");
     	List<Company> companyList = companyJpaService.getCompanys();
-    	System.out.println("getAllCompanies " + companyList.size());
+    	logger.debug("getAllCompanies " + companyList.size());
        return companyList;
     }
     

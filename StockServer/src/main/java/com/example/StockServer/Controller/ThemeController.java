@@ -33,9 +33,9 @@ public class ThemeController {
             , notes = "테마 전체 조회")
 	@GetMapping(value = "/getAllThemes")
     public List<Theme> getAllThemes(){
-    	System.out.println("getAllThemes");
+    	logger.debug("getAllThemes");
     	List<Theme> ThemeList = themeJpaService.getThemes();
-    	System.out.println("getAllThemes " + ThemeList.size());
+    	logger.debug("getAllThemes " + ThemeList.size());
        return ThemeList;
     }
 	

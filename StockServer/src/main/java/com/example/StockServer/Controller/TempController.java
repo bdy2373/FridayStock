@@ -84,16 +84,16 @@ public class TempController {
     	String themevalue = "150775";
     	
     	List<Theme> savedTheme2 = themeJpaService.findTopThemeByThemeEtc(themevalue);
-    	System.out.println("existsByThemeEtc"+savedTheme2.get(0).getThemeName());
+    	logger.debug("existsByThemeEtc"+savedTheme2.get(0).getThemeName());
     	
     	boolean savedTheme = themeJpaService.existsByThemeEtc(themevalue);
-    	System.out.println("existsByThemeEtc"+savedTheme);
+    	logger.debug("existsByThemeEtc"+savedTheme);
        // assertEquals(0, hospitalDao.getCount());
     }
     
     @GetMapping(value = "/deleteAllTest")
     void deleteAllTest(){
-    	System.out.println("sizee" + companyJpaService.getCompanys());
+    	logger.debug("sizee" + companyJpaService.getCompanys());
         companyJpaService.deleteAllCompany();
        // assertEquals(0, hospitalDao.getCount());
     }
@@ -101,7 +101,7 @@ public class TempController {
     @GetMapping(value = "/companythemeSave")
     public String companythemeSave() {
     	List<Company> companyList = companyJpaService.getCompanys();
-		System.out.println("회사명sdfsdfsd이 뭘까요? " +companyList.size());
+		logger.debug("회사명sdfsdfsd이 뭘까요? " +companyList.size());
 		for(Company company : companyList) {
 			companytheme(company);
 		}
@@ -186,7 +186,7 @@ public class TempController {
 		Document document;
 		try {
 			document = conn.post();
-			System.out.println(document.toString());
+			logger.debug(document.toString());
 			Elements reasonElement = document.select("#divThemeDescription");
 
 		    StringBuilder sb = new StringBuilder();
@@ -276,7 +276,7 @@ public class TempController {
 			if(response.statusCode() == HttpStatus.OK) {
 				return response.bodyToMono(String.class);
 			}else {
-				System.out.println("api error");
+				logger.debug("api error");
 				return Mono.empty();
 			}
 		});
@@ -300,7 +300,7 @@ public class TempController {
         List<Company> companyList;
         try {
         	companyList = readByLine(filename);
-            System.out.println("파싱이 끝났습니다.");
+            logger.debug("파싱이 끝났습니다.");
             companyList.stream()
                     .parallel()
                     .forEach(company -> {
@@ -332,7 +332,7 @@ public class TempController {
             		result.add(parse(str));
             	}
             }catch(Exception e){
-            	System.out.println(e);
+            	logger.debug(e.getMessage());
                 System.out.printf("파싱 중 문제가 생겨 이 라인은 넘어갑니다. 파일내용 : %s\n", str);
             }
         }
@@ -352,16 +352,16 @@ public class TempController {
         company.setStockType(splitted[9]);
         company.setPerValue(splitted[10]);
         company.setNumberOfStock(splitted[11]);
-        System.out.println(company.getCompanyShortName());
+        logger.debug(company.getCompanyShortName());
         return company;
     }
 
    	
    	@GetMapping(value = "/getAllNews")
        public List<News> getAllNews(){
-       	System.out.println("getAllNews");
+       	logger.debug("getAllNews");
        	List<News> newsList = newsJpaService.getNewss();
-       	System.out.println("getAllNews " + newsList.size());
+       	logger.debug("getAllNews " + newsList.size());
           return newsList;
        }
    	
