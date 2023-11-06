@@ -24,7 +24,7 @@ public class GraphController {
     public byte[] getGraph(@PathVariable String companyName) throws IOException {
     	
     	String pathOfImage = "생성된 이미지의 경로";
-        InputStream in = getClass().getResourceAsStream("/com/baeldung/produceimage/image.jpg");
+        InputStream in = getClass().getResourceAsStream(pathOfImage);
         return in.readAllBytes();
     }
 }
