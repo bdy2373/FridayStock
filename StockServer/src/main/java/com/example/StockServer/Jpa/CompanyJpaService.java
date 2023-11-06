@@ -88,6 +88,10 @@ public class CompanyJpaService {
     }
     
     
+    public Company findByCompanyShortName(String companyShortName) {
+        return companyRepository.findByCompanyShortName(companyShortName);  // JpaRepository에서 제공하는 getById() 함수
+    }
+    
     public List<Company> findByCompanyShortNameContaining(String companyShortName) {
         return companyRepository.findByCompanyShortNameContaining(companyShortName);  // JpaRepository에서 제공하는 getById() 함수
     }

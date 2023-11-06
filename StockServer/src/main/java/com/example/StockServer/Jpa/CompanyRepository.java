@@ -15,7 +15,7 @@ public interface CompanyRepository extends JpaRepository<Company, Integer> {
 	Company findByCompanyCode(String companyCode);
 	List<Company> findByCompanyNameContaining(String companyName);
 	
-
+	Company findByCompanyShortName(String companyName);
 	List<Company> findByCompanyShortNameContaining(String companyShortName);
 	
 	
