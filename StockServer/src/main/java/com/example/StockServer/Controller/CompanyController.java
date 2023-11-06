@@ -116,7 +116,7 @@ public class CompanyController {
     
     @ApiOperation(
             value = "회사종목코드를 이용하여 회사 정보 검색 - 심화 (news 까지 죄다 호출됨)"
-            , notes = "종목코드를 정확하게 입력해야 나옴")
+            , notes = "종목명을 정확하게 입력해야 나옴")
     @GetMapping(value = "/getCompanyThemeReasonNews2/{companyName}")
     public ResponseCTRN getCompanyThemeReasonNews2(@PathVariable String companyName){
     	logger.debug("company name is? "+companyName);
