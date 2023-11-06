@@ -53,10 +53,7 @@ dependencies {
 	implementation group: 'com.mysql', name: 'mysql-connector-j', version: '8.0.33'
 	//implementation 'org.springframwork.boot:spring-boot-starter-jdbc'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	
-	//jpqa
-	implementation 'com.querydsl:querydsl-jpa'
-	
+
 	//swagger
 	implementation("io.springfox:springfox-boot-starter:3.0.0")
 	implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '3.0.0' // swagger
@@ -72,23 +69,4 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
-}
-//Gradle에서 사용할 추가적인 task - jpql
-def querydslDir = "$buildDir/generated/querydsl"
-
-querydsl{
-    jpa = true
-    querydslSourcesDir = querydslDir
-}
-
-sourceSets {
-    main.java.srcDir querydslDir
-}
-
-configurations{
-    querydsl.extendsFrom compileClasspath
-}
-
-compileQuerydsl{
-    options.annotationProcessorPath = configurations.querydsl
 }
