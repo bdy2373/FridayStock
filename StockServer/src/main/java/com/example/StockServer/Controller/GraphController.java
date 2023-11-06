@@ -26,6 +26,8 @@ public class GraphController {
     	
     	String pathOfImage = "생성된 이미지의 경로";
         InputStream in = getClass().getResourceAsStream("/com/baeldung/produceimage/image.jpg");
+        
+       
         return in.readAllBytes();
     }
 }
