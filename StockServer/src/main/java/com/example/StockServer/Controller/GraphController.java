@@ -3,7 +3,6 @@ package com.example.StockServer.Controller;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,8 +25,6 @@ public class GraphController {
     	
     	String pathOfImage = "생성된 이미지의 경로";
         InputStream in = getClass().getResourceAsStream("/com/baeldung/produceimage/image.jpg");
-        
-       
         return in.readAllBytes();
     }
 }
