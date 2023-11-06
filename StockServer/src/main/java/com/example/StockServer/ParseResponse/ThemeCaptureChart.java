@@ -1,4 +1,4 @@
-package com.example.StockServer.Response;
+package com.example.StockServer.ParseResponse;
 
 import lombok.Builder;
 import lombok.Getter;

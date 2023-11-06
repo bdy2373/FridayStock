@@ -1,5 +1,6 @@
 package com.example.StockServer.Controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -10,7 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.StockServer.Jpa.CompanyJpaService;
+import com.example.StockServer.Jpa.ReasonsJpaService;
 import com.example.StockServer.Jpa.ThemeJpaService;
+import com.example.StockServer.dao.Company;
+import com.example.StockServer.dao.Reasons;
 import com.example.StockServer.dao.Theme;
 
 import io.swagger.annotations.ApiOperation;
@@ -27,6 +31,7 @@ public class ThemeController {
 
     private final CompanyJpaService companyJpaService;
 	private final ThemeJpaService themeJpaService;
+	private final ReasonsJpaService reasonsJpaService;
 	
     @ApiOperation(
             value = "테마 전체 조회"
@@ -38,6 +43,8 @@ public class ThemeController {
     	logger.debug("getAllThemes " + ThemeList.size());
        return ThemeList;
     }
+    
+    
 	
    
 }

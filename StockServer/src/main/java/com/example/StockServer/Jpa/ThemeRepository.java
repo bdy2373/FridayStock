@@ -14,4 +14,5 @@ public interface ThemeRepository extends JpaRepository<Theme, Integer> {  // Jpa
 	
 	boolean existsByThemeEtc(String themeEtc);
 
+
 }

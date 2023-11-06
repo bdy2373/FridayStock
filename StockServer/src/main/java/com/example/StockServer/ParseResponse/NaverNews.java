@@ -1,4 +1,4 @@
-package com.example.StockServer.Response;
+package com.example.StockServer.ParseResponse;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,16 +1,12 @@
 package com.example.StockServer.Jpa;
 
 
-import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
-import javax.transaction.Transactional;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
+import com.example.StockServer.dao.Company;
 import com.example.StockServer.dao.News;
 
 import lombok.RequiredArgsConstructor;
@@ -65,6 +61,16 @@ public class NewsJpaService {
      */
     public List<News> getNewss() {
         return newsRepository.findAll();  // JpaRepository에서 제공하는 findAll() 함수
+    }
+    
+
+    /**
+     * News List 조회
+     * 
+     * @return
+     */
+    public List<News> getTop7Newss(int themeId) {
+        return newsRepository.findTop7ByThemeId(themeId); 
     }
     
 

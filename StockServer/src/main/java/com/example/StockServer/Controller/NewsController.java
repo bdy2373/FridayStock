@@ -18,8 +18,8 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import com.example.StockServer.Jpa.NewsJpaService;
 import com.example.StockServer.Jpa.ThemeJpaService;
-import com.example.StockServer.Response.NaverNews;
-import com.example.StockServer.Response.NaverNews.Items;
+import com.example.StockServer.ParseResponse.NaverNews;
+import com.example.StockServer.ParseResponse.NaverNews.Items;
 import com.example.StockServer.dao.News;
 import com.example.StockServer.dao.Theme;
 
@@ -55,6 +55,18 @@ public class NewsController {
        return newsList;
     }
     
+    @ApiOperation(
+            value = "뉴스 top 7 조회"
+            , notes = "뉴스 top 7 조회")
+	@GetMapping(value = "/getTop7News")
+    public List<News> getTop7News(int themeId){
+    	logger.debug("getTop7News");
+    	List<News> newsList = newsJpaService.getTop7Newss(themeId);
+    	logger.debug("getTop7News " + newsList.size());
+       return newsList;
+    }
+    
+   
     
     @ApiOperation(
             value = "테마를 이용해서 신규 뉴스를 등록해보자"

@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.NotNull;
 
@@ -46,6 +47,7 @@ public class News {
     @Column(name = "NEWS_DESCRIPTION")
     private String description;
     
+    @JsonIgnore
     @ManyToOne // Many = News, One = Theme
 	@JoinColumn(name="THEME_ID") // foreign key (THEME_ID) references User (ID)
 	private Theme theme; // DB는 오브젝트를 저장할 수 없다. FK, 자바는 오브젝트를 저장할 수 있다. //참조 할 테이블
