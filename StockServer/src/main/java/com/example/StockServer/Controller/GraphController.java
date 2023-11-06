@@ -1,8 +1,11 @@
 package com.example.StockServer.Controller;
 
+
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +28,15 @@ public class GraphController {
     	
     	String pathOfImage = "생성된 이미지의 경로";
         InputStream in = getClass().getResourceAsStream(pathOfImage);
-        return in.readAllBytes();
+        
+        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+
+        int nRead;
+        byte[] data = new byte[16384];
+
+        while ((nRead = in.read(data, 0, data.length)) != -1) {
+          buffer.write(data, 0, nRead);
+        }
+        return buffer.toByteArray();
     }
 }
