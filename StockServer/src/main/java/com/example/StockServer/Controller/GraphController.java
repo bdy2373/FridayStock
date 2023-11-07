@@ -199,7 +199,7 @@ public class GraphController {
     	logger.debug("companyShortName" + companyShortName);
     	String[] command = new String[3];
         command[0] = "python3";
-        command[1] = "yahoo.py";
+        command[1] = "/root/FridayStock/StockServer/yahoo.py";
         command[2] = companyShortName;
         
         String[] command2 = new String[2];
@@ -207,7 +207,7 @@ public class GraphController {
         command2[1] = "/root/FridayStock/StockServer/";
       
         try {
-        	execPython(command2);
+        	//execPython(command2);
         	execPython(command);
         	
         } catch (Exception e) {
