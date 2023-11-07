@@ -6,6 +6,7 @@ from mplfinance.original_flavor import candlestick_ohlc
 import matplotlib.dates as mpl_dates
 import matplotlib.pyplot as plt
 import sys
+import os
 plt.rcParams['figure.figsize'] = [12, 7]
 plt.rc('font', size=14)
 
@@ -59,7 +60,7 @@ def plot_all(df,stock_name,stock_code): # 위 지지 저항 구한 값으로 주
 
 
 def get_stock(stock_name): # 한글 종목명을 넣으면 주식코드 6자리를 만들어줌 + 코스피의 경우 .KS / 코스닥의 경우 .KQ
-    pd_stock=pd.read_excel("./stock_all_list.xlsx", engine="openpyxl", header=0)
+    pd_stock=pd.read_excel("../../stock_all_list.xlsx", engine="openpyxl", header=0)
 
     # try:
     #stock_code=str(pd_stock[pd_stock['종목명']==stock_name]['종목코드'].values)[2:][:-2]
