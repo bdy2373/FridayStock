@@ -202,7 +202,7 @@ public class GraphController {
         command[1] = "yahoo.py";
         command[2] = companyShortName;
         
-        String[] command2 = new String[3];
+        String[] command2 = new String[2];
         command[0] = "cd";
         command[1] = "/root/FridayStock/StockServer/";
       
