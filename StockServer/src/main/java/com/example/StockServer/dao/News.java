@@ -54,6 +54,9 @@ public class News {
     
     @Column(name = "NEWS_REASON")
     private String reason;
+    
+    @Column(name = "NEWS_POSITIVE_NEGATIVE")
+    private String positiveNegative;
 
 
 	public Integer getId() {

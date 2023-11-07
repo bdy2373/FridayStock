@@ -1,10 +1,13 @@
 package com.example.StockServer.Controller;
 
 
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+
+import javax.imageio.ImageIO;
 
 import org.apache.commons.exec.CommandLine;
 import org.apache.commons.exec.DefaultExecutor;
@@ -12,6 +15,7 @@ import org.apache.commons.exec.ExecuteException;
 import org.apache.commons.exec.PumpStreamHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,6 +37,34 @@ public class GraphController {
 	private static final Logger logger = LoggerFactory.getLogger(GraphController.class);
 
     private final CompanyJpaService companyJpaService;
+    
+    @ApiOperation(
+            value = "이미지 테스트용 "
+            , notes = "이미지 테스트용 ")
+    @GetMapping(value = "/testImage", produces = MediaType.IMAGE_PNG_VALUE)
+    public byte[] testImage() throws IOException {
+    	
+    	String pathOfImage = "./imgs/035720.KS.png";
+ 
+        logger.debug("pathOfImage is "+ pathOfImage);
+        
+        BufferedImage image;
+        //로컬 파일을 사용하는 경우 
+        File imageFile = new File(pathOfImage);
+        image = ImageIO.read(imageFile);
+        
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        try {
+            ImageIO.write(image, "png", stream);
+        } catch(IOException e) {
+            // This *shouldn't* happen with a ByteArrayOutputStream, but if it
+            // somehow does happen, then we don't want to just ignore it
+            throw new RuntimeException(e);
+        }
+        return stream.toByteArray();
+       
+    	
+    }
 	
     @ApiOperation(
             value = "회사 이름을 이용해서 그래프 받아오기"
@@ -81,9 +113,6 @@ public class GraphController {
             return buffer.toByteArray();
     	}
     	
-    	
-    	
-    	
     }
     
     //파이썬 돌려주기
@@ -96,7 +125,8 @@ public class GraphController {
         command[2] = companyShortName;
         int result = 0;
         try {
-            result = execPython(command);
+        	result = execPython(command);
+        	
         } catch (Exception e) {
             e.printStackTrace();
         }
