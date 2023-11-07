@@ -54,7 +54,7 @@ def plot_all(df,stock_name,stock_code): # 위 지지 저항 구한 값으로 주
                  xmax=max(df['Date']),colors='blue')
     fig.show()
     #fig.savefig(stock_name+'.png')
-    fig.savefig('./imgs/'+stock_code+'.png')
+    fig.savefig('/root/FridayStock/StockServer/imgs/'+stock_code+'.png')
     return stock_code
 
 
@@ -75,12 +75,12 @@ def get_stock(stock_name): # 한글 종목명을 넣으면 주식코드 6자리�
     # except:
         # print("예외 발생, 종목명을 정확히 확인하세요!")
         
-    if market_code_tmp == 'KOSPI':
-          stock_code=stock_code+'.KS'
-          print(stock_code)
-    elif market_code_tmp == 'KOSDAQ':
-          stock_code=stock_code+'.KQ'
-          print(stock_code)
+    #if market_code_tmp == 'KOSPI':
+    #      stock_code=stock_code+'.KS'
+    #      print(stock_code)
+    #elif market_code_tmp == 'KOSDAQ':
+    #      stock_code=stock_code+'.KQ'
+    #      print(stock_code)
         
     return stock_code,stock_name 
     # stock_code.split([','])

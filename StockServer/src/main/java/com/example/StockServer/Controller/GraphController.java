@@ -141,7 +141,7 @@ public class GraphController {
     	//cmd python3 실행
     	givenPythonScript_whenPythonProcessExecuted_thenSuccess(findCompany.getCompanyShortName());
     	Path path = Paths.get("");
-    	System.out.println("절대경로" + path.toAbsolutePath().toString());
+    	logger.debug("절대경로" + path.toAbsolutePath().toString());
     	//이미지 경로 받아와서 실행
         String pathOfImage = "/root/FridayStock/StockServer/imgs/"+findCompany.getCompanyCode();
         if("KOSPI".equalsIgnoreCase(findCompany.getExchangeMarket())) {
@@ -151,6 +151,7 @@ public class GraphController {
         }else {
         	return null;
         }
+        
         logger.debug("pathOfImage is "+ pathOfImage);
     	
         BufferedImage image;
