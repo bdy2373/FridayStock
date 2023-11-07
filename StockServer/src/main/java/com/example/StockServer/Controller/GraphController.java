@@ -5,6 +5,8 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import javax.imageio.ImageIO;
 
@@ -64,6 +66,69 @@ public class GraphController {
        
     	
     }
+    
+    @ApiOperation(
+            value = "path 확인용 "
+            , notes = "path 확인용 ")
+    @GetMapping(value = "/testPath")
+    public String testPath() throws IOException {
+    	
+    	Path path = Paths.get("");
+        return path.toString();
+       
+    	
+    }
+    
+    @ApiOperation(
+            value = "회사 이름을 이용해서 그래프 받아오기 - 로컬 확인용"
+            , notes = "회사 이름 -> python -> 응답 파일 전송")
+    @GetMapping(value = "/getGraphLocal/{companyName}", produces = MediaType.IMAGE_PNG_VALUE)
+    public byte[] getGraphLocal(@PathVariable String companyName) throws IOException {
+
+    	Company findCompany = companyJpaService.findByCompanyShortName(companyName);
+    	
+    	//cmd python3 실행
+    	givenPythonScript_whenPythonProcessExecuted_thenSuccess(findCompany.getCompanyShortName());
+    	Path path = Paths.get("");
+    	System.out.println("절대경로" + path.toAbsolutePath().toString());
+    	//이미지 경로 받아와서 실행
+        String pathOfImage = "./imgs/"+findCompany.getCompanyCode();
+        if("KOSPI".equalsIgnoreCase(findCompany.getExchangeMarket())) {
+        	pathOfImage = pathOfImage + ".KS.png";
+        }else if("KOSDAQ".equalsIgnoreCase(findCompany.getExchangeMarket())) {
+        	pathOfImage = pathOfImage + ".KQ.png";
+        }else {
+        	return null;
+        }
+        logger.debug("pathOfImage is "+ pathOfImage);
+    	
+        BufferedImage image;
+        //로컬 파일을 사용하는 경우 
+        File imageFile = new File(pathOfImage);
+        setPermission(imageFile , true, true, true);
+        while(!imageFile.exists()) {
+        	try {
+				Thread.sleep(100);
+				if(imageFile.exists()) break;
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }
+        image = ImageIO.read(imageFile);
+        
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        try {
+            ImageIO.write(image, "png", stream);
+        } catch(IOException e) {
+            // This *shouldn't* happen with a ByteArrayOutputStream, but if it
+            // somehow does happen, then we don't want to just ignore it
+            throw new RuntimeException(e);
+        }
+        return stream.toByteArray();
+        
+    	
+    }
 	
     @ApiOperation(
             value = "회사 이름을 이용해서 그래프 받아오기"
@@ -75,9 +140,10 @@ public class GraphController {
     	
     	//cmd python3 실행
     	givenPythonScript_whenPythonProcessExecuted_thenSuccess(findCompany.getCompanyShortName());
-    	
+    	Path path = Paths.get("");
+    	System.out.println("절대경로" + path.toAbsolutePath().toString());
     	//이미지 경로 받아와서 실행
-        String pathOfImage = "./imgs/"+findCompany.getCompanyCode();
+        String pathOfImage = "/root/FridayStock/StockServer/imgs/"+findCompany.getCompanyCode();
         if("KOSPI".equalsIgnoreCase(findCompany.getExchangeMarket())) {
         	pathOfImage = pathOfImage + ".KS.png";
         }else if("KOSDAQ".equalsIgnoreCase(findCompany.getExchangeMarket())) {

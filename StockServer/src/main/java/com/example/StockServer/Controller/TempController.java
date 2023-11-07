@@ -78,6 +78,39 @@ public class TempController {
        
     }
     
+    @GetMapping(value = "/companyEdit")
+    public int companyEdit() throws IOException {
+        String filename="E:\\2023\\StockServer\\data_2149_20231026.csv";
+        
+        try {
+        	List<Company> beforeCompanyList = companyJpaService.findByExchangeMarketContaining("19");
+        	//Company beforeCompany = beforeCompanyList.get(0);
+        	//System.out.println("beforeCompany "+beforeCompany.getCompanyCode());
+        	for(Company beforeCompany : beforeCompanyList) {
+        		String companyCode = beforeCompany.getCompanyCode();
+        		System.out.println("beforeCompany "+companyCode);
+        		BufferedReader reader = new BufferedReader(new FileReader(filename));
+                Charset.forName("UTF-8");
+                String str;
+                while ((str = reader.readLine()) != null) {
+                	if(str.contains("\""+companyCode+"\"")){
+                		Company updateCompany = parse(str);
+                		updateCompany.setId(beforeCompany.getId());
+                		System.out.println("update 값 "+ updateCompany.getId() +" || "+updateCompany.getCompanyCode());
+                		companyJpaService.updateCompany(updateCompany);
+                		break;
+                	}
+                    
+                }
+                reader.close();
+        	}
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return 1;
+       
+    }
+    
     
     @GetMapping(value = "/selectTest")
     void selectTest(){
@@ -340,8 +373,26 @@ public class TempController {
         return result;
     }
     public Company parse(String str) {
-    	str = str.replaceAll("\"", "");
+    	System.out.println(str);
+    	str = str.toUpperCase()
+    			.replaceAll(",INC", " INC")
+    			.replaceAll(", INC", " INC")
+    			.replaceAll("INC.,", "INC")
+    			.replaceAll("CO., LTD", "CO.LTD")
+    			.replaceAll("CO,. LTD", "CO.LTD")
+    			.replaceAll("CO.,LTD", "CO.LTD")
+    			.replaceAll("CO,.LTD", "CO.LTD")
+    			.replaceAll("CO.LTD.,", "CO.LTD")
+    			.replaceAll("CO.LTD,.", "CO.LTD")
+    			.replaceAll(", LIMITED", " LIMITED")
+    			.replaceAll(",LIMITED", " LIMITED")
+    			.replaceAll(",LTD", " LTD")
+    			.replaceAll(", LTD", " LTD")
+    			.replaceAll("\"", "");
     	String[] splitted = str.split(",");
+    	System.out.println(str);
+    	System.out.println("length"+splitted.length);
+    	
         Company company = new Company();
         //company.setId();
         company.setCompanyCode(splitted[1]);
