@@ -45,7 +45,7 @@ public class GraphController {
     @GetMapping(value = "/testImage", produces = MediaType.IMAGE_PNG_VALUE)
     public byte[] testImage() throws IOException {
     	
-    	String pathOfImage = "./imgs/035720.KS.png";
+    	String pathOfImage = "/root/FridayStock/StockServer/imgs/352820.KS.png";
  
         logger.debug("pathOfImage is "+ pathOfImage);
         
