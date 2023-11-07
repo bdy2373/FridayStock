@@ -60,8 +60,8 @@ public class ThemeController {
     }
     
     @ApiOperation(
-            value = "회사종목코드를 이용하여 회사 정보 검색 - 심화 (news 까지 죄다 호출됨)"
-            , notes = "종목코드를 정확하게 입력해야 나옴")
+            value = "테마명를 이용하여 회사 정보 검색 - 심화 (news 까지 죄다 호출됨)"
+            , notes = "테마명을 이용해서 테마목록과 뉴스 검색")
     @GetMapping(value = "/findThemeReasonByThemeNameContaining/{themeName}")
     public List<ResponseThemeReason> findThemeReasonByThemeNameContaining(@PathVariable String themeName){
     	logger.debug("themeName is? "+themeName);

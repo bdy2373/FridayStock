@@ -88,9 +88,10 @@ public class GraphController {
         BufferedImage image;
         //로컬 파일을 사용하는 경우 
         File imageFile = new File(pathOfImage);
+        setPermission(imageFile , true, true, true);
         while(!imageFile.exists()) {
         	try {
-				Thread.sleep(1000);
+				Thread.sleep(100);
 				if(imageFile.exists()) break;
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
@@ -98,7 +99,7 @@ public class GraphController {
 			}
         }
         image = ImageIO.read(imageFile);
-           
+        
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         try {
             ImageIO.write(image, "png", stream);
@@ -111,6 +112,18 @@ public class GraphController {
         
     	
     }
+    private boolean setPermission(File target , boolean read, boolean write, boolean exe) {
+		try {
+			target.setReadable(read);
+			target.setWritable(write);
+			target.setExecutable(exe);
+			return true;
+			
+		} catch (Exception e) { 
+			e.printStackTrace(); 
+			return false; 
+		}
+	}
     
     //파이썬 돌려주기
     public void givenPythonScript_whenPythonProcessExecuted_thenSuccess(String companyShortName) throws ExecuteException, IOException {
