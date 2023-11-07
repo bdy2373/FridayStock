@@ -143,14 +143,14 @@ public class GraphController {
     	Path path = Paths.get("");
     	System.out.println("절대경로" + path.toAbsolutePath().toString());
     	//이미지 경로 받아와서 실행
-        String pathOfImage = "/root/FridayStock/StockServer/imgs/"+findCompany.getCompanyCode();
-        if("KOSPI".equalsIgnoreCase(findCompany.getExchangeMarket())) {
-        	pathOfImage = pathOfImage + ".KS.png";
-        }else if("KOSDAQ".equalsIgnoreCase(findCompany.getExchangeMarket())) {
-        	pathOfImage = pathOfImage + ".KQ.png";
-        }else {
-        	return null;
-        }
+        String pathOfImage = "/root/FridayStock/StockServer/imgs/"+findCompany.getCompanyCode()+".png";
+//        if("KOSPI".equalsIgnoreCase(findCompany.getExchangeMarket())) {
+//        	pathOfImage = pathOfImage + ".KS.png";
+//        }else if("KOSDAQ".equalsIgnoreCase(findCompany.getExchangeMarket())) {
+//        	pathOfImage = pathOfImage + ".KQ.png";
+//        }else {
+//        	return null;
+//        }
         
         System.out.println("pathOfImage is "+ pathOfImage);
     	
