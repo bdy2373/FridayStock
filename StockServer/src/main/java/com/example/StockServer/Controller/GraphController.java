@@ -74,7 +74,7 @@ public class GraphController {
     public String testPath() throws IOException {
     	
     	Path path = Paths.get("");
-        return path.toString();
+        return path.toAbsolutePath().toString();
        
     	
     }
@@ -208,7 +208,7 @@ public class GraphController {
     	logger.debug("companyShortName" + companyShortName);
     	String[] command = new String[3];
         command[0] = "python3";
-        command[1] = "yahoo.py";
+        command[1] = "../../yahoo.py";
         command[2] = companyShortName;
         
       
