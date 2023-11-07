@@ -7,14 +7,17 @@ import matplotlib.dates as mpl_dates
 import matplotlib.pyplot as plt
 import sys
 import os
+import pytz
 plt.rcParams['figure.figsize'] = [12, 7]
 plt.rc('font', size=14)
 
 
 def get_df(stock_code): # 일봉 차트를 정리하여 데이터프레임으로 넣어줌
     name = stock_code
+
     ticker = yfinance.Ticker(name)
     
+    #today=datetime.datetime.utcnow()
     today=datetime.datetime.utcnow()
     day_delta=datetime.timedelta(days=60)
     was=(today-day_delta).strftime('%Y-%m-%d')
@@ -104,8 +107,6 @@ class Main():
     plot_all(df,stock_name,stock_code)
 
 if __name__=="__main__":
-    print("python starts")
     Main()
-    print(0)
 
 
