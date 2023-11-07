@@ -54,6 +54,7 @@ public class NewsController {
     	logger.debug("getAllNews " + newsList.size());
        return newsList;
     }
+   
     
     @ApiOperation(
             value = "뉴스 top 7 조회"
@@ -65,8 +66,7 @@ public class NewsController {
     	logger.debug("getTop7News " + newsList.size());
        return newsList;
     }
-    
-   
+
     
     @ApiOperation(
             value = "테마를 이용해서 신규 뉴스를 등록해보자"

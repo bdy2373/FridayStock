@@ -2,6 +2,7 @@ package com.example.StockServer.Controller;
 
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -42,20 +43,33 @@ public class GraphController {
     	Company findCompany = companyJpaService.findByCompanyShortName(companyName);
     	
     	//cmd python3 실행
-    	int result = givenPythonScript_whenPythonProcessExecuted_thenSuccess(findCompany.getCompanyShortName());
+    	givenPythonScript_whenPythonProcessExecuted_thenSuccess(findCompany.getCompanyShortName());
     	
-    	if (result!=0) {
-    		//이미지 경로 받아와서 실행
-        	String pathOfImage = "/imgs/"+findCompany.getCompanyCode();
-        	if("KOSPI".equalsIgnoreCase(findCompany.getCompanyCode())) {
-        		pathOfImage = pathOfImage + ".KS";
-        	}else if("KOSDAQ".equalsIgnoreCase(findCompany.getCompanyCode())) {
-        		pathOfImage = pathOfImage + ".KQ";
-        	}
-        	logger.debug("pathOfImage is "+ pathOfImage);
-        	
+    	//이미지 경로 받아와서 실행
+        String pathOfImage = "./imgs/"+findCompany.getCompanyCode();
+        if("KOSPI".equalsIgnoreCase(findCompany.getCompanyCode())) {
+        	pathOfImage = pathOfImage + ".KS.png";
+        }else if("KOSDAQ".equalsIgnoreCase(findCompany.getCompanyCode())) {
+        	pathOfImage = pathOfImage + ".KQ.png";
+        }
+        logger.debug("pathOfImage is "+ pathOfImage);
+    	
+    	while(true) {
+    		
+    		// Create a file object
+    		File file = new File(pathOfImage);
+    		
+    		// 1. check if the file exists or not
+    		boolean isExists = file.exists();
+    		
+    		if(isExists) {
+    			System.out.println("I find the existFile.txt");
+    		} else {
+    			System.out.println("No, there is not a no file.");
+    		}
+    		
             InputStream in = getClass().getResourceAsStream(pathOfImage);
-            
+               
             ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 
             int nRead;
@@ -65,15 +79,17 @@ public class GraphController {
               buffer.write(data, 0, nRead);
             }
             return buffer.toByteArray();
-    	}else {
-    		return null;
     	}
+    	
+    	
+    	
     	
     }
     
     //파이썬 돌려주기
     public int givenPythonScript_whenPythonProcessExecuted_thenSuccess(String companyShortName) throws ExecuteException, IOException {
-    	String[] command = new String[4];
+    	logger.debug("companyShortName" + companyShortName);
+    	String[] command = new String[3];
         command[0] = "python3";
         //command[1] = "\\workspace\\java-call-python\\src\\main\\resources\\test.py";
         command[1] = "yahoo.py";
@@ -89,7 +105,8 @@ public class GraphController {
     
     public static int execPython(String[] command) throws IOException, InterruptedException {
         CommandLine commandLine = CommandLine.parse(command[0]);
-        for (int i = 1, n = command.length; i < n; i++) {
+        int n = command.length;
+        for (int i = 1; i < n; i++) {
             commandLine.addArgument(command[i]);
         }
 

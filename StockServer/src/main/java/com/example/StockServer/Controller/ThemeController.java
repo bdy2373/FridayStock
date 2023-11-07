@@ -12,10 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.StockServer.Jpa.CompanyJpaService;
+import com.example.StockServer.Jpa.NewsJpaService;
 import com.example.StockServer.Jpa.ReasonsJpaService;
 import com.example.StockServer.Jpa.ThemeJpaService;
-import com.example.StockServer.dao.Company;
-import com.example.StockServer.dao.Reasons;
+import com.example.StockServer.ResponseDto.ResponseThemeReason;
+import com.example.StockServer.dao.News;
 import com.example.StockServer.dao.Theme;
 
 import io.swagger.annotations.ApiOperation;
@@ -32,6 +33,8 @@ public class ThemeController {
 
     private final CompanyJpaService companyJpaService;
 	private final ThemeJpaService themeJpaService;
+
+	private final NewsJpaService newsJpaService;
 	private final ReasonsJpaService reasonsJpaService;
 	
     @ApiOperation(
@@ -56,6 +59,28 @@ public class ThemeController {
        return themeList;
     }
     
+    @ApiOperation(
+            value = "회사종목코드를 이용하여 회사 정보 검색 - 심화 (news 까지 죄다 호출됨)"
+            , notes = "종목코드를 정확하게 입력해야 나옴")
+    @GetMapping(value = "/findThemeReasonByThemeNameContaining/{themeName}")
+    public List<ResponseThemeReason> findThemeReasonByThemeNameContaining(@PathVariable String themeName){
+    	logger.debug("themeName is? "+themeName);
+    	
+    	List<Theme> themeList = themeJpaService.findByThemeNameContaining(themeName);
+    	
+    	List<ResponseThemeReason> rtrList = new ArrayList<>();
+    	for(Theme theme : themeList) {
+    		ResponseThemeReason themeReason = new ResponseThemeReason();
+  
+    		themeReason.setTheme(theme);
+    		List<News> newsList = newsJpaService.getTop7Newss(theme.getId());
+    		themeReason.setNewsList(newsList);
+    		rtrList.add(themeReason);
+    	}
+    	
+    	logger.debug("themeName " + rtrList.size());
+        return rtrList;
+    }
     
     
 	
