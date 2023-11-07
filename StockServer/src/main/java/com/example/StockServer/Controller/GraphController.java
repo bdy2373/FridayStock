@@ -45,7 +45,7 @@ public class GraphController {
     @GetMapping(value = "/testImage", produces = MediaType.IMAGE_PNG_VALUE)
     public byte[] testImage() throws IOException {
     	
-    	String pathOfImage = "/root/FridayStock/StockServer/imgs/352820.KS.png";
+    	String pathOfImage = "../../imgs/352820.KS.png";
  
         logger.debug("pathOfImage is "+ pathOfImage);
         
@@ -92,21 +92,24 @@ public class GraphController {
     	Path path = Paths.get("");
     	System.out.println("절대경로" + path.toAbsolutePath().toString());
     	//이미지 경로 받아와서 실행
-        String pathOfImage = "./imgs/"+findCompany.getCompanyCode();
-        if("KOSPI".equalsIgnoreCase(findCompany.getExchangeMarket())) {
-        	pathOfImage = pathOfImage + ".KS.png";
-        }else if("KOSDAQ".equalsIgnoreCase(findCompany.getExchangeMarket())) {
-        	pathOfImage = pathOfImage + ".KQ.png";
-        }else {
-        	return null;
-        }
+        String pathOfImage = "./imgs/"+findCompany.getCompanyCode()+".png";
+//        if("KOSPI".equalsIgnoreCase(findCompany.getExchangeMarket())) {
+//        	pathOfImage = pathOfImage + ".KS.png";
+//        }else if("KOSDAQ".equalsIgnoreCase(findCompany.getExchangeMarket())) {
+//        	pathOfImage = pathOfImage + ".KQ.png";
+//        }else {
+//        	return null;
+//        }
+//        
         logger.debug("pathOfImage is "+ pathOfImage);
     	
         BufferedImage image;
         //로컬 파일을 사용하는 경우 
         File imageFile = new File(pathOfImage);
         setPermission(imageFile , true, true, true);
+        int count = 0;
         while(!imageFile.exists()) {
+        	if(count==50) break;
         	try {
 				Thread.sleep(100);
 				if(imageFile.exists()) break;
@@ -114,6 +117,7 @@ public class GraphController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+        	count++;
         }
         image = ImageIO.read(imageFile);
         
@@ -139,11 +143,13 @@ public class GraphController {
     	Company findCompany = companyJpaService.findByCompanyShortName(companyName);
     	
     	//cmd python3 실행
-    	givenPythonScript_whenPythonProcessExecuted_thenSuccess(findCompany.getCompanyShortName());
     	Path path = Paths.get("");
     	System.out.println("절대경로" + path.toAbsolutePath().toString());
+    	
+    	givenPythonScript_whenPythonProcessExecuted_thenSuccess(findCompany.getCompanyShortName());
+    	
     	//이미지 경로 받아와서 실행
-        String pathOfImage = "/root/FridayStock/StockServer/imgs/"+findCompany.getCompanyCode()+".png";
+        String pathOfImage = "../../imgs/"+findCompany.getCompanyCode()+".png";
 //        if("KOSPI".equalsIgnoreCase(findCompany.getExchangeMarket())) {
 //        	pathOfImage = pathOfImage + ".KS.png";
 //        }else if("KOSDAQ".equalsIgnoreCase(findCompany.getExchangeMarket())) {
@@ -158,7 +164,9 @@ public class GraphController {
         //로컬 파일을 사용하는 경우 
         File imageFile = new File(pathOfImage);
         setPermission(imageFile , true, true, true);
+        int count = 0;
         while(!imageFile.exists()) {
+        	if(count==50) break;
         	try {
 				Thread.sleep(100);
 				if(imageFile.exists()) break;
@@ -166,6 +174,7 @@ public class GraphController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+        	count++;
         }
         image = ImageIO.read(imageFile);
         
@@ -199,15 +208,11 @@ public class GraphController {
     	logger.debug("companyShortName" + companyShortName);
     	String[] command = new String[3];
         command[0] = "python3";
-        command[1] = "/root/FridayStock/StockServer/yahoo.py";
+        command[1] = "yahoo.py";
         command[2] = companyShortName;
         
-        String[] command2 = new String[2];
-        command2[0] = "cd";
-        command2[1] = "/root/FridayStock/StockServer/";
       
         try {
-        	//execPython(command2);
         	execPython(command);
         	
         } catch (Exception e) {
@@ -220,6 +225,7 @@ public class GraphController {
         CommandLine commandLine = CommandLine.parse(command[0]);
         int n = command.length;
         for (int i = 1; i < n; i++) {
+        	System.out.println("command 출력"+command[i]);
             commandLine.addArgument(command[i]);
         }
 
@@ -228,7 +234,6 @@ public class GraphController {
         DefaultExecutor executor = new DefaultExecutor();
         executor.setStreamHandler(pumpStreamHandler);
         int result = executor.execute(commandLine);
-        
         
         logger.debug("result: " + result);
         logger.debug("output: " + outputStream.toString());
