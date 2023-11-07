@@ -55,7 +55,7 @@ def plot_all(df,stock_name,stock_code): # 위 지지 저항 구한 값으로 주
                  xmax=max(df['Date']),colors='blue')
     fig.show()
     #fig.savefig(stock_name+'.png')
-    fig.savefig('./imgs/'+stock_code+'.png')
+    fig.savefig('../../imgs/'+stock_code+'.png')
     return stock_code
 
 
