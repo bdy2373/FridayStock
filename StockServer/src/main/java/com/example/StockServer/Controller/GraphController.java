@@ -82,6 +82,8 @@ public class GraphController {
         	pathOfImage = pathOfImage + ".KS.png";
         }else if("KOSDAQ".equalsIgnoreCase(findCompany.getExchangeMarket())) {
         	pathOfImage = pathOfImage + ".KQ.png";
+        }else {
+        	return null;
         }
         logger.debug("pathOfImage is "+ pathOfImage);
     	
