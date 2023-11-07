@@ -200,8 +200,13 @@ public class GraphController {
         command[0] = "python3";
         command[1] = "yahoo.py";
         command[2] = companyShortName;
+        
+        String[] command2 = new String[3];
+        command[0] = "cd";
+        command[1] = "/root/FridayStock/StockServer/";
       
         try {
+        	execPython(command2);
         	execPython(command);
         	
         } catch (Exception e) {
