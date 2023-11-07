@@ -220,6 +220,8 @@ public class GraphController {
         }
     }
     
+    
+    
     public static void execPython(String[] command) throws IOException, InterruptedException {
     	System.out.println("command 출력"+command[0]);
         CommandLine commandLine = CommandLine.parse(command[0]);
