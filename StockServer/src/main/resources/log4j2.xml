@@ -71,11 +71,11 @@
 
         <!-- 내 패키지에서 발생하는 error 출력 -->
         <Logger name="com.example.StockServer" level="DEBUG" additivity="false">
-            <AppenderRef ref="ERROR-Appneder"/>
+            <AppenderRef ref="DEBUG-Appneder"/>
         </Logger>
     </Loggers>
     <Loggers>
-        <Root level="info">
+        <Root level="debug">
             <AppenderRef ref="ConsoleLog" />
             <AppenderRef ref="FileLog" />
         </Root>

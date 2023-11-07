@@ -5,7 +5,6 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 
@@ -69,7 +68,7 @@ public class GraphController {
     @ApiOperation(
             value = "회사 이름을 이용해서 그래프 받아오기"
             , notes = "회사 이름 -> python -> 응답 파일 전송")
-    @GetMapping(value = "/getGraph/{companyName}")
+    @GetMapping(value = "/getGraph/{companyName}", produces = MediaType.IMAGE_PNG_VALUE)
     public byte[] getGraph(@PathVariable String companyName) throws IOException {
 
     	Company findCompany = companyJpaService.findByCompanyShortName(companyName);
@@ -79,61 +78,57 @@ public class GraphController {
     	
     	//이미지 경로 받아와서 실행
         String pathOfImage = "./imgs/"+findCompany.getCompanyCode();
-        if("KOSPI".equalsIgnoreCase(findCompany.getCompanyCode())) {
+        if("KOSPI".equalsIgnoreCase(findCompany.getExchangeMarket())) {
         	pathOfImage = pathOfImage + ".KS.png";
-        }else if("KOSDAQ".equalsIgnoreCase(findCompany.getCompanyCode())) {
+        }else if("KOSDAQ".equalsIgnoreCase(findCompany.getExchangeMarket())) {
         	pathOfImage = pathOfImage + ".KQ.png";
         }
         logger.debug("pathOfImage is "+ pathOfImage);
     	
-    	while(true) {
-    		
-    		// Create a file object
-    		File file = new File(pathOfImage);
-    		
-    		// 1. check if the file exists or not
-    		boolean isExists = file.exists();
-    		
-    		if(isExists) {
-    			System.out.println("I find the existFile.txt");
-    		} else {
-    			System.out.println("No, there is not a no file.");
-    		}
-    		
-            InputStream in = getClass().getResourceAsStream(pathOfImage);
-               
-            ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-
-            int nRead;
-            byte[] data = new byte[16384];
-
-            while ((nRead = in.read(data, 0, data.length)) != -1) {
-              buffer.write(data, 0, nRead);
-            }
-            return buffer.toByteArray();
-    	}
+        BufferedImage image;
+        //로컬 파일을 사용하는 경우 
+        File imageFile = new File(pathOfImage);
+        while(!imageFile.exists()) {
+        	try {
+				Thread.sleep(1000);
+				if(imageFile.exists()) break;
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }
+        image = ImageIO.read(imageFile);
+           
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        try {
+            ImageIO.write(image, "png", stream);
+        } catch(IOException e) {
+            // This *shouldn't* happen with a ByteArrayOutputStream, but if it
+            // somehow does happen, then we don't want to just ignore it
+            throw new RuntimeException(e);
+        }
+        return stream.toByteArray();
+        
     	
     }
     
     //파이썬 돌려주기
-    public int givenPythonScript_whenPythonProcessExecuted_thenSuccess(String companyShortName) throws ExecuteException, IOException {
+    public void givenPythonScript_whenPythonProcessExecuted_thenSuccess(String companyShortName) throws ExecuteException, IOException {
     	logger.debug("companyShortName" + companyShortName);
     	String[] command = new String[3];
         command[0] = "python3";
-        //command[1] = "\\workspace\\java-call-python\\src\\main\\resources\\test.py";
         command[1] = "yahoo.py";
         command[2] = companyShortName;
-        int result = 0;
+      
         try {
-        	result = execPython(command);
+        	execPython(command);
         	
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return result;
     }
     
-    public static int execPython(String[] command) throws IOException, InterruptedException {
+    public static void execPython(String[] command) throws IOException, InterruptedException {
         CommandLine commandLine = CommandLine.parse(command[0]);
         int n = command.length;
         for (int i = 1; i < n; i++) {
@@ -147,8 +142,7 @@ public class GraphController {
         int result = executor.execute(commandLine);
         logger.debug("result: " + result);
         logger.debug("output: " + outputStream.toString());
-        return result;
-
+     
     }    
     
 }
