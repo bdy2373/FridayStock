@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -43,6 +44,18 @@ public class ThemeController {
     	logger.debug("getAllThemes " + ThemeList.size());
        return ThemeList;
     }
+    
+    @ApiOperation(
+            value = "테마명을 이용하여 테마목록 검색"
+            , notes = "테마명 LIKE 검색 지원")
+    @GetMapping(value = "/findByThemeNameContaining/{themeName}")
+    public List<Theme> findByThemeNameContaining(@PathVariable String themeName){
+    	logger.debug("themeName is? "+themeName);
+    	List<Theme> themeList = themeJpaService.findByThemeNameContaining(themeName);
+    	logger.debug("findByThemeNameContaining " + themeList.size());
+       return themeList;
+    }
+    
     
     
 	

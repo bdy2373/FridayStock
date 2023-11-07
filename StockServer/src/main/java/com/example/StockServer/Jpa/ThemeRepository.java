@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import com.example.StockServer.dao.Company;
 import com.example.StockServer.dao.Theme;
 
 @Repository
@@ -13,5 +14,7 @@ public interface ThemeRepository extends JpaRepository<Theme, Integer> {  // Jpa
 	List<Theme> findTopByThemeEtc(String themeEtc);
 	
 	boolean existsByThemeEtc(String themeEtc);
+	
+	List<Theme> findByThemeNameContaining(String themeName);
 
 }

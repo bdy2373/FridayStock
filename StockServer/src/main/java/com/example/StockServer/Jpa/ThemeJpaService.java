@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
+import com.example.StockServer.dao.Company;
 import com.example.StockServer.dao.Theme;
 
 import lombok.RequiredArgsConstructor;
@@ -77,6 +78,9 @@ public class ThemeJpaService {
     
     public List<Theme> findTopThemeByThemeEtc(String themeEtc) {
         return themeRepository.findTopByThemeEtc(themeEtc); // JpaRepository에서 제공하는 getById() 함수
+    }
+    public List<Theme> findByThemeNameContaining(String themeName) {
+        return themeRepository.findByThemeNameContaining(themeName);  // JpaRepository에서 제공하는 getById() 함수
     }
     
     public boolean existsByThemeEtc(String themeEtc) {
