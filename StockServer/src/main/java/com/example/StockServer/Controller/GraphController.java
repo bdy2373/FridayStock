@@ -203,8 +203,8 @@ public class GraphController {
         command[2] = companyShortName;
         
         String[] command2 = new String[2];
-        command[0] = "cd";
-        command[1] = "/root/FridayStock/StockServer/";
+        command2[0] = "cd";
+        command2[1] = "/root/FridayStock/StockServer/";
       
         try {
         	execPython(command2);
