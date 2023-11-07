@@ -70,12 +70,12 @@
         </Logger>
 
         <!-- 내 패키지에서 발생하는 error 출력 -->
-        <Logger name="com.example.StockServer" level="DEBUG" additivity="false">
-            <AppenderRef ref="DEBUG-Appneder"/>
+        <Logger name="com.example.StockServer" level="ERROR" additivity="false">
+            <AppenderRef ref="ERROR-Appneder"/>
         </Logger>
     </Loggers>
     <Loggers>
-        <Root level="debug">
+        <Root level="info">
             <AppenderRef ref="ConsoleLog" />
             <AppenderRef ref="FileLog" />
         </Root>
