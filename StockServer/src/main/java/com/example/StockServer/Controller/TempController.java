@@ -384,7 +384,7 @@ public class TempController {
     			.replaceAll("CO,.LTD", "CO.LTD")
     		//	.replaceAll("CO.LTD.,", "CO.LTD")
     			
-    			
+  
     		//	.replaceAll("CO.LTD,.", "CO.LTD")
     			.replaceAll(", LIMITED", " LIMITED")
     			.replaceAll(",LIMITED", " LIMITED")

@@ -25,10 +25,11 @@ def get_df(stock_code): # 일봉 차트를 정리하여 데이터프레임으로
     day_delta=datetime.timedelta(days=60)
     was=(today-day_delta).strftime('%Y-%m-%d')
     today=today.strftime('%Y-%m-%d')
+    print(today)
     
     df = ticker.history(interval="1d",start=was, end=today)
     #added
-    df.index = df.index.tz_convert(None)
+    #df.index = df.index.tz_convert(None)
 
     df['Date'] = pd.to_datetime(df.index)
     df['Date'] = df['Date'].apply(mpl_dates.date2num)
