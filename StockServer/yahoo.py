@@ -18,14 +18,16 @@ def get_df(stock_code): # 일봉 차트를 정리하여 데이터프레임으로
     ticker = yfinance.Ticker(name)
 
     
-    today=datetime.datetime.utcnow()
-
+    #today=datetime.datetime.utcnow()
     
+    today=datetime.datetime.now()
     print(today)
-    #today=datetime.datetime.now()
+
     day_delta=datetime.timedelta(days=60)
     was=(today-day_delta).strftime('%Y-%m-%d')
     today=today.strftime('%Y-%m-%d')
+
+    was=datetime.datetime.strptime('2023-09-08', '%Y-%m-%d')
     
     df = ticker.history(interval="1d",start=was, end=today)
     #added
