@@ -382,12 +382,13 @@ public class TempController {
     			.replaceAll("CO,. LTD", "CO.LTD")
     			.replaceAll("CO.,LTD", "CO.LTD")
     			.replaceAll("CO,.LTD", "CO.LTD")
-    			.replaceAll("CO.LTD.,", "CO.LTD")
-    			.replaceAll("CO.LTD,.", "CO.LTD")
+    		//	.replaceAll("CO.LTD.,", "CO.LTD")
+    		//	.replaceAll("CO.LTD,.", "CO.LTD")
     			.replaceAll(", LIMITED", " LIMITED")
     			.replaceAll(",LIMITED", " LIMITED")
-    			.replaceAll(",LTD", " LTD")
-    			.replaceAll(", LTD", " LTD")
+    		//	.replaceAll(",LTD", " LTD")
+    		//	.replaceAll(", LTD", " LTD")
+    			.replaceAll("\",\"", ",")
     			.replaceAll("\"", "");
     	String[] splitted = str.split(",");
     	System.out.println(str);
