@@ -20,19 +20,14 @@ def get_df(stock_code): # 일봉 차트를 정리하여 데이터프레임으로
     
     today=datetime.datetime.utcnow()
 
-    today <- "2023-11-08"
-    date.start <- "2023-09-08"
-    date.end <- "2023-11-08"
     
     print(today)
     #today=datetime.datetime.now()
     day_delta=datetime.timedelta(days=60)
     was=(today-day_delta).strftime('%Y-%m-%d')
     today=today.strftime('%Y-%m-%d')
-    print(today)
     
-    #df = ticker.history(interval="1d",start=was, end=today)
-    df = ticker.history(interval="1d",start=date.start, end=today)
+    df = ticker.history(interval="1d",start=was, end=today)
     #added
     #df.index = df.index.tz_convert(None)
 
